@@ -40,18 +40,20 @@ class atr extends BdQuery {
                   "title" => $row['title'], 
                   "description"  => $row['description'],
                   "age_raitng" => $row['age_raitng'] ,
-                  "raiting" => 0,
+                  "qeue" => 0,
+                  "raiting" => floor ($row['raiting'] + 0),
                   "id__atr" => $row['id__atr'] ,
-                  "price_old" => $row['price_old'] ,
-                  "price_kid" => $row['price_kid'] ,
+                  "price_old" => $row['price_old'] . "Р",
+                  "price_kid" => $row['price_kid'] . "Р",
                   "img_url" => $_SERVER['HTTP_REFERER']  . $row['img_url'] ,
                   
                 
             );
             $i++;
         }
+        
         for($i = 0; $i < count($arr); $i++) {
-            $arr[$i]['raiting'] = parent::getQeue($arr[$i]['id__atr']);
+            $arr[$i]['qeue'] = parent::getQeue($arr[$i]['id__atr']);
         }
         return $arr;
     }
@@ -62,5 +64,7 @@ $res = new atr($conn);
 
 
 echo json_encode($res->getData());
+
+
 
 ?>
